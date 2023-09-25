@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.woaibocai.eduservice.mapper.TeacherMapper">
+
+    <resultMap id="BaseResultMap" type="top.woaibocai.eduservice.entitiy.Teacher">
+            <id property="id" column="id" jdbcType="CHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="intro" column="intro" jdbcType="VARCHAR"/>
+            <result property="career" column="career" jdbcType="VARCHAR"/>
+            <result property="level" column="level" jdbcType="INTEGER"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+            <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,intro,
+        career,level,avatar,
+        sort,is_deleted,gmt_create,
+        gmt_modified
+    </sql>
+    <!--  IPage<Map> selectMyPage(IPage page, @Param("current") Long current,@Param("size") Long size);  -->
+    <select id="selectMyPage" resultType="java.util.Map">
+        SELECT
+            id,name,intro,career,level,avatar,sort,is_deleted,gmt_create,gmt_modified
+        FROM
+            edu_teacher
+        WHERE
+            is_deleted=0
+    </select>
+</mapper>

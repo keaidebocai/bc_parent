@@ -1,0 +1,21 @@
+server:
+  port: 8001
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bc_xueyuan
+    username: root
+    password: Fyk@20010628
+    type: com.alibaba.druid.pool.DruidDataSource
+  jackson:  # 修复json返回时间格式不对的问题
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  global-config: # 逻辑删除
+    db-config:
+      logic-delete-field: is_deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
