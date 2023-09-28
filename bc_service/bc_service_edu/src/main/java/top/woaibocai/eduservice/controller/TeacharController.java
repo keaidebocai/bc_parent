@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.woaibocai.commonutils.R;
@@ -14,9 +13,8 @@ import top.woaibocai.eduservice.entitiy.Teacher;
 import top.woaibocai.eduservice.entitiy.vo.TeacherQueryVo;
 import top.woaibocai.eduservice.service.TeacherService;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * @program: bc_parent
@@ -26,7 +24,8 @@ import java.util.Map;
  **/
 @Api(value = "教师管理接口",tags = "教师信息类接口")
 @RestController
-@RequestMapping("teacher")
+@RequestMapping("/eduservice/teacher")
+@CrossOrigin
 public class TeacharController {
 
     @Autowired

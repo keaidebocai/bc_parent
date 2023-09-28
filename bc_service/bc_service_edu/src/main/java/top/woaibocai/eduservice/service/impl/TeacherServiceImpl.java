@@ -14,9 +14,6 @@ import top.woaibocai.eduservice.entitiy.vo.TeacherQueryVo;
 import top.woaibocai.eduservice.mapper.TeacherMapper;
 import top.woaibocai.eduservice.service.TeacherService;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
 * @author 36519
 * @description 针对表【edu_teacher(讲师)】的数据库操作Service实现
@@ -26,6 +23,7 @@ import java.util.Map;
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
     implements TeacherService {
     @Autowired
+//    @Resource
     private TeacherMapper teacherMapper;
     @Override
     public R pageTeacherCondition(Long current, Long size,@RequestBody(required = false) TeacherQueryVo teacherQueryVo) {
@@ -37,7 +35,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
                 .like(!StringUtils.isEmpty(teacherQueryVo.getName()),Teacher::getName,teacherQueryVo.getName())
                 .eq(teacherQueryVo.getLevel() == 1 || teacherQueryVo.getLevel() == 2,Teacher::getLevel,teacherQueryVo.getLevel())
                 .ge(!StringUtils.isEmpty(teacherQueryVo.getBegin()),Teacher::getGmtCreate,teacherQueryVo.getBegin())
-                .le(!StringUtils.isEmpty(teacherQueryVo.getEnd()),Teacher::getGmtModified,teacherQueryVo.getEnd());
+                .le(!StringUtils.isEmpty(teacherQueryVo.getEnd()),Teacher::getGmtModified,teacherQueryVo.getEnd())
+                .orderByDesc(Teacher::getGmtCreate);
 
         //把查好的数据放进分页
         teacherMapper.selectPage(teacherIPage,queryWrapper);

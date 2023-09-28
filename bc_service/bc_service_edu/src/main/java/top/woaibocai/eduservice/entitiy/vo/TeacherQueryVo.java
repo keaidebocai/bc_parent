@@ -3,6 +3,8 @@ package top.woaibocai.eduservice.entitiy.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+
+
 /**
  * @program: bc_parent
  * @description:
@@ -17,6 +19,6 @@ public class TeacherQueryVo {
     private Integer level;
     @ApiModelProperty(value = "查询时间开始",example = "2019-01-01 10:10:10")
     private String begin;
-    @ApiModelProperty(value = "查询时间结束",example = "2019-12-01 10:10:10")
+    @ApiModelProperty(value = "查询时间结束")
     private String end;
 }
