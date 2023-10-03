@@ -1,0 +1,22 @@
+# 端口号
+server:
+  port: 8002
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bc_xueyuan
+    username: root
+    password: Fyk@20010628
+    type: com.alibaba.druid.pool.DruidDataSource
+  profiles:
+    active: dev # 环境设置
+  application:
+    name: service-cos # 服务名
+# 腾讯云 COS
+qcloud:
+  cos:
+    file:
+      secretId: AKIDSkwwkYAZkiRyKf3H1d2LWYPCzgKo9II9  # id
+      secretKey: wf8OTIzc7OZnucJo4SefVFm5C9tPfgU5  # key
+      COS_REGION: ap-shanghai # 地域
+      bucket: woaibocai-1318632412  # 存储桶
