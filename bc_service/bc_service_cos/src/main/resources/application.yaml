@@ -12,11 +12,3 @@ spring:
     active: dev # 环境设置
   application:
     name: service-cos # 服务名
-# 腾讯云 COS
-qcloud:
-  cos:
-    file:
-      secretId: AKIDSkwwkYAZkiRyKf3H1d2LWYPCzgKo9II9  # id
-      secretKey: wf8OTIzc7OZnucJo4SefVFm5C9tPfgU5  # key
-      COS_REGION: ap-shanghai # 地域
-      bucket: woaibocai-1318632412  # 存储桶
