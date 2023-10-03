@@ -16,7 +16,7 @@ spring:
 qcloud:
   cos:
     file:
-      secretId: AKIDSkwwkYAZkiRyKf3H1d2LWYPCzgKo9II9  # id
-      secretKey: wf8OTIzc7OZnucJo4SefVFm5C9tPfgU5  # key
-      COS_REGION: ap-shanghai # 地域
-      bucket: woaibocai-1318632412  # 存储桶
+      secretId:  # id
+      secretKey:   # key
+      COS_REGION:  # 地域
+      bucket:  # 存储桶
