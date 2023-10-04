@@ -1,6 +1,7 @@
 package top.woaibocai.eduservice.controller;
 
 
+import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.woaibocai.commonutils.R;
+import top.woaibocai.eduservice.constans.TeacherConstans;
 import top.woaibocai.eduservice.entitiy.Teacher;
 import top.woaibocai.eduservice.entitiy.vo.TeacherQueryVo;
 import top.woaibocai.eduservice.service.TeacherService;
@@ -71,7 +73,10 @@ public class TeacharController {
     @ApiOperation("添加讲师")
     @PostMapping("addTeacher")
     public R addTeacher(@RequestBody Teacher teacher){
-
+        //TODO：等前端学习的熟练，一定要来这里把这个默认头像删了，包括那个b常量类！
+        if (StringUtils.isEmpty(teacher.getAvatar())){
+            teacher.setAvatar(TeacherConstans.DEFAULT_AVATAR);
+        }
         Boolean result = teacherService.save(teacher);
         if (result){
             return R.ok();
