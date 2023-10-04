@@ -34,8 +34,8 @@ import java.util.UUID;
  **/
 @Service
 public class CosServiceImpl implements CosService {
-    @Resource
-    private CosConfig cosConfig;
+//    @Resource
+//    private CosConfig cosConfig;
     @Override
     public String uploadFileAvatar(MultipartFile file) throws IOException {
 
@@ -48,12 +48,13 @@ public class CosServiceImpl implements CosService {
         //获取当前日期 用joda工具类
         String datePath = new DateTime().toString("yyyy/MM/dd");
         //拼接
-        String fileName = datePath + uuid + file.getOriginalFilename();
+        String fileName = datePath + "/" + uuid + file.getOriginalFilename();
 
 
         // 调用 COS 接口之前必须保证本进程存在一个 COSClient 实例，如果没有则创建
         // 详细代码参见本页：简单操作 -> 创建 COSClient
-        COSClient cosClient = cosConfig.createCOSClient();
+
+        COSClient cosClient = createCOSClient();
         // 存储桶的命名格式为 BucketName-APPID，此处填写的存储桶名称必须为此格式
         String bucketName = ConstantPropertiesUtils.BUCKET;
         // 对象键(Key)是对象在存储桶中的唯一标识。
@@ -90,5 +91,42 @@ public class CosServiceImpl implements CosService {
                 + "/woaibocai/avatar/"
                 + fileName;
         return url;
+    }
+    /**
+    * @Description: 为什么写在这里呢？
+     * 因为// 确认本进程不再使用 cosClient 实例之后，关闭即可
+     * cosClient.shutdown();
+     * 如果在config里实例化，那就会调用config的线程，但是在impl线程中用完cos就关了，导致下次new cosClient会报错
+     * Connection pool shut down
+    * @Param: []
+    * @return: com.qcloud.cos.COSClient
+    * @Author: woaibocai
+    * @Date: 2023/10/4
+    */
+    COSClient createCOSClient() {
+        // 设置用户身份信息。
+        // SECRETID 和 SECRETKEY 请登录访问管理控制台 https://console.cloud.tencent.com/cam/capi 进行查看和管理
+        String secretId = ConstantPropertiesUtils.SECRET_ID;//用户的 SecretId，建议使用子账号密钥，授权遵循最小权限指引，降低使用风险。子账号密钥获取可参见 https://cloud.tencent.com/document/product/598/37140
+        String secretKey = ConstantPropertiesUtils.SECRET_KEY;//用户的 SecretKey，建议使用子账号密钥，授权遵循最小权限指引，降低使用风险。子账号密钥获取可参见 https://cloud.tencent.com/document/product/598/37140
+        COSCredentials cred = new BasicCOSCredentials(secretId, secretKey);
+        // ClientConfig 中包含了后续请求 COS 的客户端设置：
+        ClientConfig clientConfig = new ClientConfig();
+        // 设置 bucket 的地域
+        // COS_REGION 请参见 https://cloud.tencent.com/document/product/436/6224
+        clientConfig.setRegion(new Region(ConstantPropertiesUtils.COS_REGION));
+        // 设置请求协议, http 或者 https
+        // 5.6.53 及更低的版本，建议设置使用 https 协议
+        // 5.6.54 及更高版本，默认使用了 https
+        clientConfig.setHttpProtocol(HttpProtocol.http);
+        // 以下的设置，是可选的：
+        // 设置 socket 读取超时，默认 30s
+        clientConfig.setSocketTimeout(30*1000);
+        // 设置建立连接超时，默认 30s
+        clientConfig.setConnectionTimeout(30*1000);
+//        // 如果需要的话，设置 http 代理，ip 以及 port
+//        clientConfig.setHttpProxyIp("httpProxyIp");
+//        clientConfig.setHttpProxyPort(80);
+        // 生成 cos 客户端。
+        return new COSClient(cred,clientConfig);
     }
 }

@@ -14,11 +14,11 @@ import top.woaibocai.cos.utils.ConstantPropertiesUtils;
 
 /**
  * @program: bc_parent
- * @description:
+ * @description:    不建议在config里实例化，因为在这里实例化的话，和impl不是一个进程，建议写在impl里，耦合就耦合把。
  * @author: woaibocai
  * @create: 2023-10-03 20:50
  **/
-@Configuration
+//@Configuration
 public class CosConfig {
     // 创建 COSClient 实例，这个实例用来后续调用请求
     @Bean
