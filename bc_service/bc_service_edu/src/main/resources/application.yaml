@@ -19,3 +19,6 @@ mybatis-plus:
       logic-not-delete-value: 0
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+teacher:
+  # 默认头像
+  avatar: https://woaibocai-1318632412.cos.ap-shanghai.myqcloud.com/woaibocai/avatar/avatar.png
