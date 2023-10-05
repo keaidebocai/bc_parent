@@ -4,6 +4,9 @@ package top.woaibocai.eduservice.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 import top.woaibocai.eduservice.entitiy.Subject;
+import top.woaibocai.eduservice.entitiy.subject.OneSubject;
+
+import java.util.List;
 
 /**
 * @author 36519
@@ -13,4 +16,7 @@ import top.woaibocai.eduservice.entitiy.Subject;
 public interface SubjectService extends IService<Subject> {
 
     void saveSubject(MultipartFile file,SubjectService subjectService);
+
+
+    List<OneSubject> getAllSubjectTree();
 }

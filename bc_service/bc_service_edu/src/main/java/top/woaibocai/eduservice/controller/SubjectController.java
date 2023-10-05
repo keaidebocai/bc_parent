@@ -3,13 +3,13 @@ package top.woaibocai.eduservice.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.woaibocai.commonutils.R;
+import top.woaibocai.eduservice.entitiy.subject.OneSubject;
 import top.woaibocai.eduservice.service.SubjectService;
+
+import java.util.List;
 
 /**
  * @program: bc_parent
@@ -40,6 +40,15 @@ public class SubjectController {
         //上传过来的文件
         subjectService.saveSubject(file,subjectService);
         return R.ok();
+    }
+
+
+    @ApiOperation("课程分类列表(树形)")
+    @GetMapping("getAllSubject")
+    public R getAllSubjectTree(){
+
+        List<OneSubject> result = subjectService.getAllSubjectTree();
+        return R.ok().data("list",result);
     }
 
 }
