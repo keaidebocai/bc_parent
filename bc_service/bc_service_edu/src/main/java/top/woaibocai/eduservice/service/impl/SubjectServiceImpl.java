@@ -57,7 +57,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> impl
         LambdaQueryWrapper<Subject> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(Subject::getId,Subject::getParentId,Subject::getTitle)
                 .ne(Subject::getParentId,"0");
-        List<Subject> twoSubjects = baseMapper.selectList(queryWrapper);
+        List<Subject> twoSubjects = this.baseMapper.selectList(queryWrapper);
         //创建一个list集合用于存储最终的数据
         List<OneSubject> subjectsVo = new ArrayList<>();
         //封装一级分类

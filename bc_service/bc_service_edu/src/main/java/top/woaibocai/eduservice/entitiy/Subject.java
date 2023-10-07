@@ -12,7 +12,7 @@ import lombok.Data;
 @TableName(value ="edu_subject")
 @Data
 public class Subject implements Serializable {
-    @TableId(value = "id",type = IdType.ASSIGN_UUID)
+
     private String id;
 
     private String title;
