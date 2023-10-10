@@ -35,6 +35,32 @@ public class CourseController {
         String id = courseService.addCourseInfo(courseInfoVo);
         return R.ok().data("courseId",id);
     }
+    /**
+    * @Description: 根据课程查询课程基本信息
+    * @Param: [courseId]
+    * @return: top.woaibocai.commonutils.R
+    * @Author: woaibocai
+    * @Date: 2023/10/10
+    */
+    @ApiOperation("根据课程查询课程基本信息")
+    @GetMapping("getCourseInfo/{courseId}")
+    public R getCourseInfo(@PathVariable String courseId){
+        CourseInfoVo courseInfoVo = courseService.getCourseInfo(courseId);
+        return R.ok().data("courseInfoVo",courseInfoVo);
+    }
+    /**
+    * @Description: 修改课程信息
+    * @Param: [courseInfoVo]
+    * @return: top.woaibocai.commonutils.R
+    * @Author: woaibocai
+    * @Date: 2023/10/10
+    */
+    @ApiOperation("修改课程信息")
+    @PostMapping("updateCourseInfo")
+    public R updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo){
+        courseService.updateCourseInfo(courseInfoVo);
+        return R.ok();
+    }
 
 
 }
