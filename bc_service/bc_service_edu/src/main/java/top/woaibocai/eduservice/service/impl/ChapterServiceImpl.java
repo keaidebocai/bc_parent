@@ -13,6 +13,7 @@ import top.woaibocai.eduservice.entitiy.chapter.VideoVo;
 import top.woaibocai.eduservice.mapper.ChapterMapper;
 import top.woaibocai.eduservice.mapper.VideoMapper;
 import top.woaibocai.eduservice.service.ChapterService;
+import top.woaibocai.servicebase.exceptionhandler.GuliException;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,9 +26,9 @@ import java.util.List;
 */
 @Service
 public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> implements ChapterService {
-    @Autowired
+    @Resource
     private ChapterMapper chapterMapper;
-    @Autowired
+    @Resource
     private VideoMapper videoMapper;
 
     @Override
@@ -69,6 +70,21 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
             finalChapterVo.add(chapterVo);
         }
         return finalChapterVo;
+    }
+    @Override
+    public Boolean deleteChapter(String chapterId) {
+        //根据chapterid去查询小节表，如果有数据，就不删除。
+        LambdaQueryWrapper<Video> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Video::getChapterId,chapterId);
+        Long count = videoMapper.selectCount(queryWrapper);
+        if (count > 0){
+            //有数据，不能删！
+            throw new GuliException(20001,"有小节无法删除！");
+        }else {
+            //删！
+            int i = chapterMapper.deleteById(chapterId);
+            return i > 0;
+        }
     }
 }
 

@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import top.woaibocai.commonutils.R;
@@ -13,6 +12,8 @@ import top.woaibocai.eduservice.entitiy.Teacher;
 import top.woaibocai.eduservice.entitiy.vo.TeacherQueryVo;
 import top.woaibocai.eduservice.mapper.TeacherMapper;
 import top.woaibocai.eduservice.service.TeacherService;
+
+import javax.annotation.Resource;
 
 /**
 * @author 36519
@@ -22,7 +23,7 @@ import top.woaibocai.eduservice.service.TeacherService;
 @Service
 public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher>
     implements TeacherService {
-    @Autowired
+    @Resource
 //    @Resource
     private TeacherMapper teacherMapper;
     @Override

@@ -3,6 +3,7 @@ package top.woaibocai.eduservice.service;
 import top.woaibocai.eduservice.entitiy.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
 import top.woaibocai.eduservice.entitiy.vo.CourseInfoVo;
+import top.woaibocai.eduservice.entitiy.vo.CoursePublishVo;
 
 /**
 * @author 36519
@@ -16,4 +17,6 @@ public interface CourseService extends IService<Course> {
     CourseInfoVo getCourseInfo(String courseId);
 
     void updateCourseInfo(CourseInfoVo courseInfoVo);
+
+    CoursePublishVo getPublishCourseInfo(String id);
 }

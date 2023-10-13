@@ -1,11 +1,14 @@
 package top.woaibocai.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;
 import top.woaibocai.eduservice.entitiy.Video;
 import top.woaibocai.eduservice.mapper.VideoMapper;
 import top.woaibocai.eduservice.service.VideoService;
+
+import javax.annotation.Resource;
 
 /**
 * @author 36519
@@ -14,7 +17,6 @@ import top.woaibocai.eduservice.service.VideoService;
 */
 @Service
 public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements VideoService {
-
 }
 
 

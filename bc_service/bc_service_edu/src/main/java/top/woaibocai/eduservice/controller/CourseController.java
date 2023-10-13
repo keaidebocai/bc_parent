@@ -2,11 +2,13 @@ package top.woaibocai.eduservice.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.woaibocai.commonutils.R;
 import top.woaibocai.eduservice.entitiy.vo.CourseInfoVo;
+import top.woaibocai.eduservice.entitiy.vo.CoursePublishVo;
 import top.woaibocai.eduservice.service.CourseService;
+
+import javax.annotation.Resource;
 
 /**
  * @program: bc_parent
@@ -20,7 +22,7 @@ import top.woaibocai.eduservice.service.CourseService;
 @Api(value = "课程管理接口",tags = "课程管理类接口")
 public class CourseController {
 
-    @Autowired
+    @Resource
     private CourseService courseService;
     /**
     * @Description: 添加课程信息
@@ -60,6 +62,20 @@ public class CourseController {
     public R updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo){
         courseService.updateCourseInfo(courseInfoVo);
         return R.ok();
+    }
+
+    /**
+    * @Description: 根据课程id查询确认信息
+    * @Param: [id]
+    * @return: top.woaibocai.commonutils.R
+    * @Author: woaibocai
+    * @Date: 2023/10/13
+    */
+    @ApiOperation("根据课程id查询确认信息")
+    @GetMapping("getPublishCourseInfo/{id}")
+    public R getPublishCourseInfo(@PathVariable String id){
+        CoursePublishVo coursePublish = courseService.getPublishCourseInfo(id);
+        return R.ok().data("coursePublish",coursePublish);
     }
 
 

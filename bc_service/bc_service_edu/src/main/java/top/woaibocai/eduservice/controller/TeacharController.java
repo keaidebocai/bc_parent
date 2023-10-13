@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.woaibocai.commonutils.R;
 import top.woaibocai.eduservice.constans.TeacherConstans;
@@ -15,6 +14,7 @@ import top.woaibocai.eduservice.entitiy.Teacher;
 import top.woaibocai.eduservice.entitiy.vo.TeacherQueryVo;
 import top.woaibocai.eduservice.service.TeacherService;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -30,7 +30,7 @@ import java.util.List;
 @CrossOrigin
 public class TeacharController {
 
-    @Autowired
+    @Resource
     private TeacherService teacherService;
     @ApiOperation("查询用户列表")
     //查询所有信息

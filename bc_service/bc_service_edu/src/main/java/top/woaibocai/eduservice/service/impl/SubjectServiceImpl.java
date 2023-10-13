@@ -5,7 +5,6 @@ import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import top.woaibocai.eduservice.entitiy.Subject;
@@ -16,13 +15,11 @@ import top.woaibocai.eduservice.listener.SubjectExcelListener;
 import top.woaibocai.eduservice.mapper.SubjectMapper;
 import top.woaibocai.eduservice.service.SubjectService;
 
+import javax.annotation.Resource;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
 * @author 36519
@@ -31,7 +28,7 @@ import java.util.stream.Collectors;
 */
 @Service
 public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject> implements SubjectService {
-    @Autowired
+    @Resource
     private SubjectMapper subjectMapper;
     @Override
     public void saveSubject(MultipartFile file,SubjectService subjectService) {

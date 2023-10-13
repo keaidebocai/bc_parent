@@ -2,13 +2,13 @@ package top.woaibocai.eduservice.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.woaibocai.commonutils.R;
 import top.woaibocai.eduservice.entitiy.subject.OneSubject;
 import top.woaibocai.eduservice.service.SubjectService;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
 @CrossOrigin
 @Api(value = "课程接口",tags = "课程类接口")
 public class SubjectController {
-    @Autowired
+    @Resource
     private SubjectService subjectService;
 
     //添加课程分类

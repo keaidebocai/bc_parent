@@ -4,15 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.woaibocai.eduservice.entitiy.Course;
 import top.woaibocai.eduservice.entitiy.CourseDescription;
 import top.woaibocai.eduservice.entitiy.vo.CourseInfoVo;
+import top.woaibocai.eduservice.entitiy.vo.CoursePublishVo;
 import top.woaibocai.eduservice.mapper.CourseDescriptionMapper;
 import top.woaibocai.eduservice.mapper.CourseMapper;
 import top.woaibocai.eduservice.service.CourseService;
 import top.woaibocai.servicebase.exceptionhandler.GuliException;
+
+import javax.annotation.Resource;
 
 /**
 * @author 36519
@@ -22,8 +24,10 @@ import top.woaibocai.servicebase.exceptionhandler.GuliException;
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
 
-    @Autowired
+    @Resource
     private CourseDescriptionMapper courseDescriptionMapper;
+    @Resource
+    private CourseMapper courseMapper;
     @Override
     public String addCourseInfo(CourseInfoVo courseInfoVo) {
         //检查主键id是否重复
@@ -80,6 +84,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         courseDescription.setId(courseInfoVo.getId());
         courseDescription.setDescription(courseInfoVo.getDescription());
         courseDescriptionMapper.updateById(courseDescription);
+    }
+
+    @Override
+    public CoursePublishVo getPublishCourseInfo(String id) {
+        CoursePublishVo coursePublishVoById = courseMapper.getCoursePublishVoById(id);
+        return coursePublishVoById;
     }
 }
 
