@@ -14,6 +14,7 @@
     <modules>
         <module>bc_service_edu</module>
         <module>bc_service_cos</module>
+        <module>bc_service_void</module>
     </modules>
 
     <properties>
