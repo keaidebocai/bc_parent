@@ -9,6 +9,7 @@
             ec.id,
             ec.title,
             ec.lesson_num AS lessonNum,
+            ec.price,
             ec.cover,
             et.name AS teacherName,
             es1.title AS subjectLevelOne,

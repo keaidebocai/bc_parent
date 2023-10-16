@@ -9,9 +9,14 @@ import top.woaibocai.eduservice.entitiy.Course;
 import top.woaibocai.eduservice.entitiy.CourseDescription;
 import top.woaibocai.eduservice.entitiy.vo.CourseInfoVo;
 import top.woaibocai.eduservice.entitiy.vo.CoursePublishVo;
+import top.woaibocai.eduservice.mapper.ChapterMapper;
 import top.woaibocai.eduservice.mapper.CourseDescriptionMapper;
 import top.woaibocai.eduservice.mapper.CourseMapper;
+import top.woaibocai.eduservice.mapper.VideoMapper;
+import top.woaibocai.eduservice.service.ChapterService;
+import top.woaibocai.eduservice.service.CourseDescriptionService;
 import top.woaibocai.eduservice.service.CourseService;
+import top.woaibocai.eduservice.service.VideoService;
 import top.woaibocai.servicebase.exceptionhandler.GuliException;
 
 import javax.annotation.Resource;
@@ -23,11 +28,18 @@ import javax.annotation.Resource;
 */
 @Service
 public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> implements CourseService {
-
-    @Resource
-    private CourseDescriptionMapper courseDescriptionMapper;
+    //课程注入
     @Resource
     private CourseMapper courseMapper;
+    //文章描述注入
+    @Resource
+    private CourseDescriptionService courseDescriptionService;
+    //小节注入
+    @Resource
+    private VideoService videoService;
+    //章节注入
+    @Resource
+    private ChapterService chapterService;
     @Override
     public String addCourseInfo(CourseInfoVo courseInfoVo) {
         //检查主键id是否重复
@@ -47,7 +59,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         CourseDescription courseDescription = new CourseDescription();
         courseDescription.setId(cid);
         courseDescription.setDescription(courseInfoVo.getDescription());
-        int insert1 = courseDescriptionMapper.insert(courseDescription);
+        int insert1 = courseDescriptionService.getBaseMapper().insert(courseDescription);
         if (insert1 <= 0){
             throw new GuliException(20001,"插入失败！");
         }
@@ -64,7 +76,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         wrapper
                 .select(CourseDescription::getDescription)
                 .eq(CourseDescription::getId,courseId);
-        CourseDescription courseDescription = courseDescriptionMapper.selectOne(wrapper);
+        CourseDescription courseDescription = courseDescriptionService.getBaseMapper().selectOne(wrapper);
         //封装
         CourseInfoVo courseInfoVo = new CourseInfoVo();
         BeanUtils.copyProperties(course,courseInfoVo);
@@ -83,13 +95,32 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         CourseDescription courseDescription = new CourseDescription();
         courseDescription.setId(courseInfoVo.getId());
         courseDescription.setDescription(courseInfoVo.getDescription());
-        courseDescriptionMapper.updateById(courseDescription);
+        courseDescriptionService.getBaseMapper().updateById(courseDescription);
     }
 
     @Override
     public CoursePublishVo getPublishCourseInfo(String id) {
         CoursePublishVo coursePublishVoById = courseMapper.getCoursePublishVoById(id);
         return coursePublishVoById;
+    }
+
+    @Override
+    public Boolean removeCourse(String courseId) {
+        //根据课程id删除小节
+        int removeByCourseId = videoService.removeByCourseId(courseId);
+
+        //根据课程id删除章节部分
+        int removeChapterByCourseId = chapterService.removeChapterByCourseId(courseId);
+
+        //根据课程id删除描述
+        courseDescriptionService.removeById(courseId);
+        //删除课程本身
+        int i = courseMapper.deleteById(courseId);
+        if (i == 0){
+            throw new GuliException(20001,"删除失败！");
+        }else {
+            return i != 0;
+        }
     }
 }
 

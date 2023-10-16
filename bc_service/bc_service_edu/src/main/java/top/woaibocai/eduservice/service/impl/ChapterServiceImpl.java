@@ -86,6 +86,14 @@ public class ChapterServiceImpl extends ServiceImpl<ChapterMapper, Chapter> impl
             return i > 0;
         }
     }
+    //根据课程id删除章节部分
+    @Override
+    public int removeChapterByCourseId(String courseId) {
+        LambdaQueryWrapper<Chapter> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Chapter::getCourseId,courseId);
+        int delete = this.baseMapper.delete(wrapper);
+        return delete;
+    }
 }
 
 

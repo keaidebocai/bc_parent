@@ -4,11 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import top.woaibocai.commonutils.R;
+import top.woaibocai.eduservice.entitiy.Course;
 import top.woaibocai.eduservice.entitiy.vo.CourseInfoVo;
 import top.woaibocai.eduservice.entitiy.vo.CoursePublishVo;
 import top.woaibocai.eduservice.service.CourseService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @program: bc_parent
@@ -24,6 +26,13 @@ public class CourseController {
 
     @Resource
     private CourseService courseService;
+    //课程列表 TODO 完善条件查询带分页
+    @ApiOperation("条件查询带分页")
+    @GetMapping
+    public R getCourseList(){
+        List<Course> list = courseService.list(null);
+        return R.ok().data("list",list);
+    }
     /**
     * @Description: 添加课程信息
     * @Param: [courseInfoVo]
@@ -78,5 +87,29 @@ public class CourseController {
         return R.ok().data("coursePublish",coursePublish);
     }
 
+    @ApiOperation("课程最终发布/修改课程状态")
+    @PostMapping("publishCourse/{id}")
+    public R publishCourse(@PathVariable String id){
+        Course course = new Course();
+        course.setId(id);
+        course.setStatus("Normal");
+        boolean b = courseService.updateById(course);
+        if (b){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
+    @ApiOperation("删除课程")
+    @DeleteMapping("{courseId}")
+    public R deleteCourse(@PathVariable String courseId){
+        Boolean b = courseService.removeCourse(courseId);
+        if (b){
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
 
 }

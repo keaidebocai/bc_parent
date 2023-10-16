@@ -17,6 +17,15 @@ import javax.annotation.Resource;
 */
 @Service
 public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements VideoService {
+    //根据课程id删除小节
+    //TODO 删除小姐，删除对应的视频文件
+    @Override
+    public int removeByCourseId(String courseId) {
+        LambdaQueryWrapper<Video> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Video::getCourseId,courseId);
+        int delete = this.baseMapper.delete(wrapper);
+        return delete;
+    }
 }
 
 
