@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import org.springframework.stereotype.Service;
 import top.woaibocai.eduservice.entitiy.Video;
+import top.woaibocai.eduservice.entitiy.vo.VideoInfo;
 import top.woaibocai.eduservice.mapper.VideoMapper;
 import top.woaibocai.eduservice.service.VideoService;
 
@@ -25,6 +26,15 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
         wrapper.eq(Video::getCourseId,courseId);
         int delete = this.baseMapper.delete(wrapper);
         return delete;
+    }
+
+    @Override
+    public Boolean videoInfo(VideoInfo videoInfo) {
+        Video video = this.baseMapper.selectById(videoInfo.getVoidId());
+        video.setVideoSourceId(videoInfo.getFileId());
+        video.setVideoOriginalName(videoInfo.getFileName().replaceAll(".mp4",""));
+        int i = this.baseMapper.updateById(video);
+        return i >= 0;
     }
 }
 

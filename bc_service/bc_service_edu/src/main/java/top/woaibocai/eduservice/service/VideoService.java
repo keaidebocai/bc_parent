@@ -2,6 +2,7 @@ package top.woaibocai.eduservice.service;
 
 import top.woaibocai.eduservice.entitiy.Video;
 import com.baomidou.mybatisplus.extension.service.IService;
+import top.woaibocai.eduservice.entitiy.vo.VideoInfo;
 
 /**
 * @author 36519
@@ -11,4 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface VideoService extends IService<Video> {
     //根据课程id删除小节
     int removeByCourseId(String courseId);
+
+    Boolean videoInfo(VideoInfo videoInfo);
 }

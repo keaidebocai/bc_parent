@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import top.woaibocai.commonutils.R;
 import top.woaibocai.eduservice.entitiy.Video;
+import top.woaibocai.eduservice.entitiy.vo.VideoInfo;
 import top.woaibocai.eduservice.service.VideoService;
 
 import javax.annotation.Resource;
@@ -63,4 +64,12 @@ public class VideoController {
         Video video = videoService.getById(videoId);
         return R.ok().data("video",video);
     }
+
+    @ApiOperation("补全video信息")
+    @PostMapping("videoInfo")
+    public R videoInfo(@RequestBody VideoInfo videoInfo){
+        Boolean b = videoService.videoInfo(videoInfo);
+        return R.ok();
+    }
+
 }

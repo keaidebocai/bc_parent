@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
  **/
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = {"top.woaibocai"})
-
 public class CosApplication8002 {
     public static void main(String[] args) {
         SpringApplication.run(CosApplication8002.class,args);
